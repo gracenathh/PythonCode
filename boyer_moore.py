@@ -2,7 +2,8 @@
 @author: Grace Nathania
 @created 25 March 2021
 
-Codes for Boyer Moore algorithm with Galil's optimisation
+Codes for Boyer Moore algorithm with Galil's optimisation. One of the fastest pattern searching algorithms with complexity of O(N/M) with N as the length of the string and M as
+the length of the pattern by using Bad Character rule, Good Suffix rule and matched prefix.
 """
 
 from z_algorithm import z_algo
