@@ -215,11 +215,7 @@ def encode(word):
     """
     This function is used to do string encoding
     :param word: the word (string) to be encoded
-    :return: an encoded word in the form of x + (a+b+c)*(each char)
-             x: number of unique char
-             a: binary representation of ASCII code
-             b: length of huffman code -> elias_num
-             c: the huffman code
+    :return: an encoded string in huffman encoding
     """
     ascii_list = [0] * 97
     n = len(word)
