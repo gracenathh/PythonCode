@@ -125,14 +125,11 @@ class min_heapify:
         """
         while 2*k <= self.counter:
             child = self.smallest_child(k)
-            # kalo parent < anak, stop
             if self.array[k][0] < self.array[child][0]:
                 break
-
-            # kalo parent >= anak
+                
             else:
-                # cek apakah key nya sama, kalo ga sama, swap
-                # kalo sama, cek length valuenya
+                # cek if keys are the same then check value length, else swap 
                 if self.array[k][0] == self.array[child][0]:
                     # kalo length val parent < length val child, break
                     if len(self.array[k][1]) < len(self.array[child][1]):
@@ -213,3 +210,46 @@ def encode_huffman(arr):
         min_heap.add(new_key, new_val)
 
     return encoding
+
+def encode(word):
+    """
+    This function is used to do string encoding
+    :param word: the word (string) to be encoded
+    :return: an encoded word in the form of x + (a+b+c)*(each char)
+             x: number of unique char
+             a: binary representation of ASCII code
+             b: length of huffman code -> elias_num
+             c: the huffman code
+    """
+    ascii_list = [0] * 97
+    n = len(word)
+
+    # calculating the probability of each char
+    for char in word:
+        idx = ord(char) - 31
+
+        # if new line is detected (10-31)
+        if idx < 0:
+            idx = 0
+
+        ascii_list[idx] += 1 / n
+
+    # Huffman code
+    heap_arr = [None]
+    unique_idx = []
+    for i in range(len(ascii_list)):
+        if ascii_list[i] != 0:
+            key = ascii_list[i]
+            if i == 0:
+                val = " "
+            else:
+                val = chr(i + 31)
+            heap_arr.append((key, val))
+            unique_idx.append(i)
+
+    encoded = encode_huffman(heap_arr)
+    
+    for idx in unique_idx:
+        huffman_code = encoded[idx]
+        
+    return huffman_code
