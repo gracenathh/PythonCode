@@ -172,3 +172,44 @@ class min_heapify:
         """
         self.array[i], self.array[j] = self.array[j], self.array[i]
 
+def encode_huffman(arr):
+    """
+    A function to generate huffman code
+    :param arr: array containing of (key,value) items to be appended to heap
+    :return: an array of size 97 which contain the huffman encoding for each ascii char (idx + 31)
+    """
+    min_heap = min_heapify(arr)
+    encoding = [""]*97 # list for all possible ascii characters (32-127 + New line)
+
+    while not min_heap.is_empty():
+        # serve twice
+        num_1, val_1 = min_heap.serve()
+        num_2, val_2 = min_heap.serve()
+
+        # iterate through chars in each serve to determine which one to prepend
+        for char in val_1:
+            idx = ord(char) - 31
+            # if idx < 0, it indicates new line and it will be placed at idx 0.
+            if idx < 0:
+                idx == 0
+            encoding[idx] = "0" + encoding[idx]
+
+        for char in val_2:
+            idx = ord(char) - 31
+            # if idx < 0, it indicates new line and it will be placed at idx 0.
+            if idx < 0:
+                idx == 0
+            encoding[idx] = "1" + encoding[idx]
+
+        # adding the serve results
+        new_key = num_1 + num_2
+        new_val = val_1 + val_2
+
+        # terminate if heap is empty
+        if min_heap.is_empty():
+            break
+
+        # appending new value to the heap for next encoding
+        min_heap.add(new_key, new_val)
+
+    return encoding
